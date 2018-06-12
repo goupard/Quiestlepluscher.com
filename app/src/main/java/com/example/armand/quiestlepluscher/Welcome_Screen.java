@@ -8,8 +8,14 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+import com.example.armand.quiestlepluscher.sqlite.*;
 
 public class Welcome_Screen extends AppCompatActivity {
+
+    private static MySQLDataBase mysqlDatabase;
+
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -17,8 +23,14 @@ public class Welcome_Screen extends AppCompatActivity {
         setContentView(R.layout.activity_welcome__screen);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        mysqlDatabase = new MySQLDataBase(this);
 
 
+    }
+
+
+    public static MySQLDataBase getMysqlDatabase() {
+        return mysqlDatabase;
     }
 
     @Override
