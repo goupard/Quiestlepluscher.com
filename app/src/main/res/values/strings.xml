@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">Quiestlepluscher</string>
+    <string name="action_settings">Settings</string>
+    <string name="action_Inscription">Inscription</string>
+    <string name="action_Connexion">Connexion</string>
+    <string name="action_Parametres">Paramètres</string>
+    <string name="action_A_propos">A propos</string>
+
+</resources>

@@ -1,0 +1,21 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="com.example.armand.quiestlepluscher.Welcome_Screen">
+    <item
+        android:id="@+id/action_Inscription"
+        android:orderInCategory="100"
+        android:title="@string/action_Inscription" />
+    <item
+        android:id="@+id/action_Connexion"
+        android:orderInCategory="100"
+        android:title="@string/action_Connexion" />
+    <item
+        android:id="@+id/action_Parametres"
+        android:orderInCategory="100"
+        android:title="@string/action_Parametres" />
+    <item
+        android:id="@+id/action_A_propos"
+        android:orderInCategory="100"
+        android:title="@string/action_A_propos" />
+</menu>
