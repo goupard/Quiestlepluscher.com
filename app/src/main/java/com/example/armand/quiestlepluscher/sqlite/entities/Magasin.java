@@ -11,6 +11,9 @@ public class Magasin {
     private String description;
     private String nom_franchise;
 
+    public Magasin() {
+    }
+
     public Magasin(int id_magasin, String nom_magasin, String localisation, String description, String nom_franchise) {
         this.id_magasin = id_magasin;
         this.nom_magasin = nom_magasin;

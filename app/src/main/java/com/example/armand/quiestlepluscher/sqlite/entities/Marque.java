@@ -10,6 +10,9 @@ public class Marque {
     private String loc_logo;
     private String description;
 
+    public Marque() {
+    }
+
     public Marque(int id_marque, String nom_marque, String loc_logo, String description) {
         this.id_marque = id_marque;
         this.nom_marque = nom_marque;

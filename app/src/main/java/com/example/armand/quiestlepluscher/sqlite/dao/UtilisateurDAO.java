@@ -1,11 +1,15 @@
 package com.example.armand.quiestlepluscher.sqlite.dao;
 
 import android.content.ContentValues;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 
 import com.example.armand.quiestlepluscher.Welcome_Screen;
+import com.example.armand.quiestlepluscher.sqlite.entities.Type;
 import com.example.armand.quiestlepluscher.sqlite.entities.Utilisateur;
+
+import java.util.ArrayList;
 
 /**
  * Created by ulyss on 12/06/2018.
@@ -39,8 +43,34 @@ public class UtilisateurDAO {
         return u;
     }
 
+    public static String sqlFindUserByLogin(String par_login){
+        return "SELECT * FROM " + TABLE_NAME + " WHERE " + login + "=" + par_login +" ;";
+    }
+
+    public static String sqlGetAllUsers = "SELECT * FROM "+TABLE_NAME+";";
+
 
     //public static String sqlInitDB = "INSERT INTO "+TABLE_NAME+" (" + id_utilisateur + "," + login + "," + hashed_password +") VALUES ();";
 
+
+    public static ArrayList<Utilisateur> getTypes(String query){
+        ArrayList<Utilisateur> utilisateurs = new ArrayList<>();
+        SQLiteDatabase bd = Welcome_Screen.getMysqlDatabase().getReadableDatabase();
+        Cursor c = bd.rawQuery(query,null);
+        if(c != null) {
+            c.moveToFirst();
+            do{
+                Utilisateur utilisateur = new Utilisateur();
+                utilisateur.setId_utilisateur(Integer.parseInt(c.getString(c.getColumnIndex(id_utilisateur))));
+                utilisateur.setLogin(c.getString(c.getColumnIndex(login)));
+                utilisateur.setHashed_password(c.getString(c.getColumnIndex(hashed_password)));
+                utilisateurs.add(utilisateur);
+            }while(c.moveToNext());
+            c.close();
+        }else{
+            Log.i("Requete SQL : ", " Aucune catégories trouvées.");
+        }
+        return utilisateurs;
+    }
 
 }

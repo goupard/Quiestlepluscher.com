@@ -9,6 +9,9 @@ public class Utilisateur {
     private String login;
     private String hashed_password;
 
+    public Utilisateur() {
+    }
+
     public Utilisateur(int id_utilisateur, String login, String hashed_password) {
         this.id_utilisateur = id_utilisateur;
         this.login = login;

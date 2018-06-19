@@ -10,6 +10,9 @@ public class Categorie {
     private String nom_categorie;
     private String description;
 
+    public Categorie() {
+    }
+
     public Categorie(int id_categorie, String nom_categorie, String description) {
         this.id_categorie = id_categorie;
         this.nom_categorie = nom_categorie;

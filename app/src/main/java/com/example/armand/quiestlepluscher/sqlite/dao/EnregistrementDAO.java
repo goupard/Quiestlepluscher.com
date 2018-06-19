@@ -1,11 +1,15 @@
 package com.example.armand.quiestlepluscher.sqlite.dao;
 
 import android.content.ContentValues;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 
 import com.example.armand.quiestlepluscher.Welcome_Screen;
+import com.example.armand.quiestlepluscher.sqlite.entities.Categorie;
 import com.example.armand.quiestlepluscher.sqlite.entities.Enregistrement;
+
+import java.util.ArrayList;
 
 /**
  * Created by ulyss on 12/06/2018.
@@ -20,6 +24,7 @@ public class EnregistrementDAO {
     private static String fk_produit = "fk_produit";
     private static String fk_utilisateur = "fk_utilisateur";
 
+    private static String sqlGetAllEnregistrements = "SELECT * FROM "+TABLE_NAME+";";
 
     public static String sqlCreateTableEnregistrements = "CREATE TABLE IF NOT EXISTS "+TABLE_NAME+" ( " +
             id_enregistrement + " INTEGER PRIMARY KEY AUTOINCREMENT ," +
@@ -49,5 +54,37 @@ public class EnregistrementDAO {
 
     //public static String sqlInitDB = "INSERT INTO "+TABLE_NAME+" (" + id_enregistrement + "," + date + "," + prix + "," + fk_produit + "," + fk_utilisateur + ") VALUES ();";
 
+    public static String sqlFindEnregistrementsByProduit(long par_fk_produit){
+        return "SELECT * FROM " + TABLE_NAME + " WHERE " + fk_produit + "=" + par_fk_produit +" ;";
+    }
 
+    public static String sqlFindEnregistrementsByProduit(String par_fk_produit){
+        return "SELECT * FROM " + TABLE_NAME + " WHERE " + fk_produit + "=" + par_fk_produit +" ;";
+    }
+
+    public static String sqlFindEnregistrementsByUtilisateur(String par_fk_utilisateur){
+        return "SELECT * FROM " + TABLE_NAME + " WHERE " + fk_utilisateur + "=" + par_fk_utilisateur +" ;";
+    }
+
+    public static ArrayList<Enregistrement> getEnregistrements(String query){
+        ArrayList<Enregistrement> enregistrements = new ArrayList<>();
+        SQLiteDatabase bd = Welcome_Screen.getMysqlDatabase().getReadableDatabase();
+        Cursor c = bd.rawQuery(query,null);
+        if(c != null) {
+            c.moveToFirst();
+            do{
+                Enregistrement enregistrement = new Enregistrement();
+                enregistrement.setId_enregistrement(Integer.parseInt(c.getString(c.getColumnIndex(id_enregistrement))));
+                enregistrement.setDate(Utils.getDateFromString(c.getString(c.getColumnIndex(date))));
+                enregistrement.setPrix(c.getColumnIndex(prix));
+                enregistrement.setFk_produit(c.getColumnIndex(fk_produit));
+                enregistrement.setFk_utilisateur(c.getColumnIndex(fk_utilisateur));
+                enregistrements.add(enregistrement);
+            }while(c.moveToNext());
+            c.close();
+        }else{
+            Log.i("Requete SQL : ", " Aucune catégories trouvées.");
+        }
+        return enregistrements;
+    }
 }

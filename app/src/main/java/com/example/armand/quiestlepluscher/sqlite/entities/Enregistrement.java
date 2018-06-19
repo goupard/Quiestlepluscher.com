@@ -14,6 +14,9 @@ public class Enregistrement {
     private int fk_produit;
     private int fk_utilisateur;
 
+    public Enregistrement() {
+    }
+
     public Enregistrement(int id_enregistrement, Date date, int prix, int fk_produit, int fk_utilisateur) {
         this.id_enregistrement = id_enregistrement;
         this.date = date;

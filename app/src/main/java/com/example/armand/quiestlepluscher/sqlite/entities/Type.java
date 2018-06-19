@@ -10,6 +10,9 @@ public class Type {
     private String description;
     private int fk_categorie;
 
+    public Type() {
+    }
+
     public Type(int id_type, String nom_type, String description, int fk_categorie) {
         this.id_type = id_type;
         this.nom_type = nom_type;

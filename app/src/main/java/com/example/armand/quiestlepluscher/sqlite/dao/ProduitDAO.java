@@ -1,11 +1,15 @@
 package com.example.armand.quiestlepluscher.sqlite.dao;
 
 import android.content.ContentValues;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 
 import com.example.armand.quiestlepluscher.Welcome_Screen;
+import com.example.armand.quiestlepluscher.sqlite.entities.Marque;
 import com.example.armand.quiestlepluscher.sqlite.entities.Produit;
+
+import java.util.ArrayList;
 
 /**
  * Created by ulyss on 12/06/2018.
@@ -20,6 +24,8 @@ public class ProduitDAO {
     private static String description = "description";
     private static String fk_type = "fk_type";
     private static String fk_marque = "fk_marque";
+
+    private static String sqlGetAllProduits = "SELECT * FROM "+TABLE_NAME+";";
 
     public static String sqlCreateTableProduits = "CREATE TABLE IF NOT EXISTS "+TABLE_NAME+" ( " +
             id_produit + " INTEGER PRIMARY KEY AUTOINCREMENT ," +
@@ -49,6 +55,44 @@ public class ProduitDAO {
     }
 
     //public static String sqlInitDB = "INSERT INTO "+TABLE_NAME+" (" + id_produit + "," + nom_produit + "," + num_code_barres + "," + description + "," + fk_type + "," + fk_marque +") VALUES ();";
+
+    public static String sqlFindProduitById(long par_id_produit){
+        return "SELECT * FROM " + TABLE_NAME + " WHERE " + id_produit + "=" + par_id_produit +" ;";
+    }
+
+    public static String sqlFindProduitByNomProduit(String par_nom_produit){
+        return "SELECT * FROM " + TABLE_NAME + " WHERE " + nom_produit + "=" + par_nom_produit +" ;";
+    }
+
+    public static String sqlFindProduitByNomProduitAndMarque(String par_nom_produit, long par_fk_marque){
+        return "SELECT * FROM " + TABLE_NAME + " WHERE " + nom_produit + "=" + par_nom_produit +" and "+ fk_marque +" ="+ par_fk_marque + ";";
+    }
+
+    public static String sqlFindProduitByNumCodeBarres(String par_num_code_barres){
+        return "SELECT * FROM " + TABLE_NAME + " WHERE " + num_code_barres + "=" + par_num_code_barres +" ;";
+    }
+
+    public static ArrayList<Produit> getProduits(String query){
+        ArrayList<Produit> produits = new ArrayList<>();
+        SQLiteDatabase bd = Welcome_Screen.getMysqlDatabase().getReadableDatabase();
+        Cursor c = bd.rawQuery(query,null);
+        if(c != null) {
+            c.moveToFirst();
+            do{
+                Produit produit = new Produit();
+                produit.setId_produit(Integer.parseInt(c.getString(c.getColumnIndex(id_produit))));
+                produit.setFk_marque(Integer.parseInt(c.getString(c.getColumnIndex(fk_marque))));
+                produit.setDescription(c.getString(c.getColumnIndex(description)));
+                produit.setNom_produit(c.getString(c.getColumnIndex(nom_produit)));
+                produit.setNum_code_barres(c.getString(c.getColumnIndex(num_code_barres)));
+                produits.add(produit);
+            }while(c.moveToNext());
+            c.close();
+        }else{
+            Log.i("Requete SQL : ", " Aucune catégories trouvées.");
+        }
+        return produits;
+    }
 
 
 }

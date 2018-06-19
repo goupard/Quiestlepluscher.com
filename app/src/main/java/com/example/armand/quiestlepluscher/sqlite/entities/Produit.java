@@ -12,6 +12,9 @@ public class Produit {
     private int fk_type;
     private int fk_marque;
 
+    public Produit() {
+    }
+
     public Produit(int id_produit, String nom_produit, String num_code_barres, String description, int fk_type, int fk_marque) {
         this.id_produit = id_produit;
         this.nom_produit = nom_produit;
