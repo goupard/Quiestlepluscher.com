@@ -1,13 +1,15 @@
 package com.example.armand.quiestlepluscher;
 
+import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+
+import com.example.armand.quiestlepluscher.Screen.Connexion;
+import com.example.armand.quiestlepluscher.Screen.Inscription;
 import com.example.armand.quiestlepluscher.sqlite.*;
 
 public class Welcome_Screen extends AppCompatActivity {
@@ -48,10 +50,19 @@ public class Welcome_Screen extends AppCompatActivity {
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_Parametres) {
-            return true;
+        if (id == R.id.action_Inscription) {
+            Intent intent= new Intent(this,Inscription.class);
+            startActivity(intent);
         }
+
+        if (id == R.id.action_Connexion) {
+            Intent intent= new Intent(this,Connexion.class);
+            startActivity(intent);
+        }
+
 
         return super.onOptionsItemSelected(item);
     }
+
+
 }
