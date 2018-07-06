@@ -1,4 +1,4 @@
-package com.example.armand.quiestlepluscher;
+package com.example.armand.quiestlepluscher.views;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -8,8 +8,11 @@ import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
 
-import com.example.armand.quiestlepluscher.Screen.Connexion;
-import com.example.armand.quiestlepluscher.Screen.Inscription;
+import com.example.armand.quiestlepluscher.screen.Connexion;
+import com.example.armand.quiestlepluscher.screen.Inscription;
+import android.widget.Button;
+
+import com.example.armand.quiestlepluscher.R;
 import com.example.armand.quiestlepluscher.sqlite.*;
 
 public class Welcome_Screen extends AppCompatActivity {
@@ -27,6 +30,14 @@ public class Welcome_Screen extends AppCompatActivity {
         setSupportActionBar(toolbar);
         mysqlDatabase = new MySQLDataBase(this);
 
+        Button button = (Button) findViewById(R.id.buttonScanCodeBarres);
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent barcodesScanner = new Intent(getApplicationContext(),ScannerCodeBarres.class);
+                startActivity(barcodesScanner);
+            }
+        });
 
     }
 

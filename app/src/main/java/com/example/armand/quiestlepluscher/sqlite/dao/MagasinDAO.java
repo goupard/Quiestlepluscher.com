@@ -4,8 +4,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 
-import com.example.armand.quiestlepluscher.Welcome_Screen;
-import com.example.armand.quiestlepluscher.sqlite.entities.Enregistrement;
+import com.example.armand.quiestlepluscher.views.Welcome_Screen;
 import com.example.armand.quiestlepluscher.sqlite.entities.Magasin;
 
 import java.util.ArrayList;

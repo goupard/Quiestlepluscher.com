@@ -1,7 +1,7 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context="com.example.armand.quiestlepluscher.Welcome_Screen">
+    tools:context="com.example.armand.quiestlepluscher.views.Welcome_Screen">
     <item
         android:id="@+id/action_Inscription"
         android:orderInCategory="100"
