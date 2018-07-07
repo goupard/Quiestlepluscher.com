@@ -1,11 +1,13 @@
 package com.example.armand.quiestlepluscher.sqlite.dao;
 
+import android.app.Activity;
 import android.content.ContentValues;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 
 import com.example.armand.quiestlepluscher.screen.Connexion;
+import com.example.armand.quiestlepluscher.sqlite.MySQLDataBase;
 import com.example.armand.quiestlepluscher.views.Welcome_Screen;
 import com.example.armand.quiestlepluscher.sqlite.entities.Enregistrement;
 
@@ -69,20 +71,27 @@ public class EnregistrementDAO {
         return "SELECT * FROM " + TABLE_NAME + " WHERE " + fk_utilisateur + "= '" + par_fk_utilisateur +"' ;";
     }
 
-    public static ArrayList<Enregistrement> getEnregistrements(String query){
+    public static <T extends Activity> ArrayList<Enregistrement> getEnregistrements(T x,String query){
         ArrayList<Enregistrement> enregistrements = new ArrayList<>();
-        SQLiteDatabase bd = Connexion.getMysqlDatabase().getReadableDatabase();
-        Cursor c = bd.rawQuery(query,null);
+        SQLiteDatabase bd = null;
+        if(Connexion.getMysqlDatabase() != null) {
+            bd = Connexion.getMysqlDatabase().getReadableDatabase();
+        }
+        else{
+            bd = new MySQLDataBase(x).getReadableDatabase();
+        }        Cursor c = bd.rawQuery(query,null);
         if(c != null) {
             c.moveToFirst();
             do{
-                Enregistrement enregistrement = new Enregistrement();
-                enregistrement.setId_enregistrement(Integer.parseInt(c.getString(c.getColumnIndex(id_enregistrement))));
-                enregistrement.setDate(Utils.getDateFromString(c.getString(c.getColumnIndex(date))));
-                enregistrement.setPrix(c.getColumnIndex(prix));
-                enregistrement.setFk_produit(c.getColumnIndex(fk_produit));
-                enregistrement.setFk_utilisateur(c.getColumnIndex(fk_utilisateur));
-                enregistrements.add(enregistrement);
+                if(! c.isAfterLast()) {
+                    Enregistrement enregistrement = new Enregistrement();
+                    enregistrement.setId_enregistrement(Integer.parseInt(c.getString(c.getColumnIndex(id_enregistrement))));
+                    enregistrement.setDate(Utils.getDateFromString(c.getString(c.getColumnIndex(date))));
+                    enregistrement.setPrix(c.getColumnIndex(prix));
+                    enregistrement.setFk_produit(c.getColumnIndex(fk_produit));
+                    enregistrement.setFk_utilisateur(c.getColumnIndex(fk_utilisateur));
+                    enregistrements.add(enregistrement);
+                }
             }while(c.moveToNext());
             c.close();
         }else{

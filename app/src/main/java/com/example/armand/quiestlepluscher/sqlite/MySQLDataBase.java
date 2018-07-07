@@ -20,7 +20,7 @@ import com.example.armand.quiestlepluscher.sqlite.dao.UtilisateurDAO;
 public class MySQLDataBase extends SQLiteOpenHelper {
 
     private static final String NOM_BD = "QuiEstLeMoinsCher.db";
-    private static final int NUM_VERSION =1;
+    private static final int NUM_VERSION = 1;
 
     public MySQLDataBase(Context context) {
         super(context, NOM_BD, null, NUM_VERSION);
@@ -29,7 +29,7 @@ public class MySQLDataBase extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        Log.i("DB","Initializing DB");
+        Log.i("DB", "Initializing DB");
         db.execSQL(CategorieDAO.sqlCreateTableCategorie);
         db.execSQL(UtilisateurDAO.sqlCreateTableUsers);
         db.execSQL(MagasinDAO.sqlCreateTableMagasin);
@@ -39,12 +39,21 @@ public class MySQLDataBase extends SQLiteOpenHelper {
         db.execSQL(EnregistrementDAO.sqlCreateTableEnregistrements);
 
 
-        db.execSQL(MarqueDAO.sqlInitDB);
-        db.execSQL(CategorieDAO.sqlInitDB);
-        db.execSQL(TypeDAO.sqlInitDB);
-
-        db.execSQL(UtilisateurDAO.sqlInitDB);
-        db.execSQL(ProduitDAO.sqlInitDB);
+        for (String query : MarqueDAO.sqlInitDB) {
+            db.execSQL(query);
+        }
+        for (String query : CategorieDAO.sqlInitDB) {
+            db.execSQL(query);
+        }
+        for (String query : TypeDAO.sqlInitDB) {
+            db.execSQL(query);
+        }
+        for (String query : UtilisateurDAO.sqlInitDB) {
+            db.execSQL(query);
+        }
+        for (String query : ProduitDAO.sqlInitDB) {
+            db.execSQL(query);
+        }
     }
 
     @Override

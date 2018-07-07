@@ -1,36 +1,23 @@
 package com.example.armand.quiestlepluscher.views;
 
-import android.Manifest;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.graphics.Camera;
-import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.util.Log;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.widget.Toast;
 
-import com.example.armand.quiestlepluscher.R;
 import com.example.armand.quiestlepluscher.sqlite.MySQLDataBase;
-import com.google.android.gms.vision.CameraSource;
-import com.google.android.gms.vision.Detector;
-import com.google.android.gms.vision.Frame;
-import com.google.android.gms.vision.MultiProcessor;
-import com.google.android.gms.vision.Tracker;
-import com.google.android.gms.vision.barcode.Barcode;
-import com.google.android.gms.vision.barcode.BarcodeDetector;
+import com.example.armand.quiestlepluscher.sqlite.dao.ProduitDAO;
+import com.example.armand.quiestlepluscher.sqlite.entities.Produit;
 import com.google.zxing.Result;
 
-import java.io.IOException;
+import java.util.List;
 
 import me.dm7.barcodescanner.zxing.ZXingScannerView;
 
@@ -56,10 +43,7 @@ public class ScannerCodeBarres extends AppCompatActivity implements ZXingScanner
         setContentView(scannerView);
 
         if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.M){
-            if(checkPermission()){
-                Toast.makeText(ScannerCodeBarres.this, "Permission already granted", Toast.LENGTH_LONG).show();
-            }
-            else{
+            if(!checkPermission()){
                 requestPermission();
             }
         }
@@ -146,8 +130,20 @@ public class ScannerCodeBarres extends AppCompatActivity implements ZXingScanner
         Log.d("QRCodeScanner", result.getText());
         Log.d("QRCodeScanner", result.getBarcodeFormat().toString());
 
-        Intent resultScan= new Intent(this,ResultScan.class);
-        resultScan.putExtra("barcode",myResult);
-        startActivity(resultScan);
+        List<Produit> produits = ProduitDAO.getProduits(this,ProduitDAO.sqlFindProduitByNumCodeBarres(myResult));
+
+        if(produits.size() == 0){
+            Intent resultScan= new Intent(this,UnknownScan.class);
+            resultScan.putExtra("barcode",myResult);
+            startActivity(resultScan);
+        }
+        else {
+            Intent resultScan= new Intent(this,KnownScan.class);
+            resultScan.putExtra("barcode",myResult);
+            startActivity(resultScan);
+        }
+
+
+
     }
 }

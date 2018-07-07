@@ -32,7 +32,12 @@
         </activity>
         <activity android:name=".views.ScannerCodeBarres"/>
         <activity
-            android:name=".views.ResultScan"
+            android:name=".views.KnownScan"
+            android:label="@string/app_name"
+            android:theme="@style/AppTheme.NoActionBar">
+        </activity>
+        <activity
+            android:name=".views.UnknownScan"
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar">
         </activity>

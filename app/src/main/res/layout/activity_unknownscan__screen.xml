@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.armand.quiestlepluscher.views.KnownScan">
+    tools:context="com.example.armand.quiestlepluscher.views.UnknownScan">
 
     <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
@@ -20,6 +20,6 @@
 
     </android.support.design.widget.AppBarLayout>
 
-    <include layout="@layout/known_scan_layout" />
+    <include layout="@layout/unknown_scan_layout" />
 
 </android.support.design.widget.CoordinatorLayout>

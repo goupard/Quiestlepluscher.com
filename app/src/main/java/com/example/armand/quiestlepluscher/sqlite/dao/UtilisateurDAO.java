@@ -1,11 +1,13 @@
 package com.example.armand.quiestlepluscher.sqlite.dao;
 
+import android.app.Activity;
 import android.content.ContentValues;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 
 import com.example.armand.quiestlepluscher.screen.Connexion;
+import com.example.armand.quiestlepluscher.sqlite.MySQLDataBase;
 import com.example.armand.quiestlepluscher.views.Welcome_Screen;
 import com.example.armand.quiestlepluscher.sqlite.entities.Utilisateur;
 
@@ -59,14 +61,21 @@ public class UtilisateurDAO {
     public static String sqlGetAllUsers = "SELECT * FROM "+TABLE_NAME+";";
 
 
-    public static String sqlInitDB = "INSERT INTO "+TABLE_NAME+" (" + id_utilisateur + "," + login + "," + nom + "," + prenom + "," + email + "," + hashed_password +")" +
-            " VALUES (800,'admin@gmail.com','root','uid0','admin@gmail.com','cc175b9c0f1b6a831c399e269772661');"; // Ligne en dur pour ajouter un administrateur
+    public static String[] sqlInitDB = {
+            "INSERT INTO "+TABLE_NAME+" (" + id_utilisateur + "," + login + "," + nom + "," + prenom + "," + email + "," + hashed_password +")" +
+            " VALUES (800,\"admin@gmail.com\",\"root\",\"uid0\",\"admin@gmail.com\",\"cc175b9c0f1b6a831c399e269772661\");"
+    }; // Ligne en dur pour ajouter un administrateur
 
 
-    public static ArrayList<Utilisateur> getUtilisateurs(String query){
+    public static <T extends Activity> ArrayList<Utilisateur> getUtilisateurs(T x,String query){
         ArrayList<Utilisateur> utilisateurs = new ArrayList<>();
-        SQLiteDatabase bd = Connexion.getMysqlDatabase().getReadableDatabase();
-        Cursor c = bd.rawQuery(query,null);
+        SQLiteDatabase bd = null;
+        if(Connexion.getMysqlDatabase() != null) {
+            bd = Connexion.getMysqlDatabase().getReadableDatabase();
+        }
+        else{
+            bd = new MySQLDataBase(x).getReadableDatabase();
+        }        Cursor c = bd.rawQuery(query,null);
         if(c != null) {
             c.moveToFirst();
             do{

@@ -18,6 +18,13 @@ public class Enregistrement  implements Serializable {
     public Enregistrement() {
     }
 
+    public Enregistrement(Date date, int prix, int fk_produit, int fk_utilisateur) {
+        this.date = date;
+        this.prix = prix;
+        this.fk_produit = fk_produit;
+        this.fk_utilisateur = fk_utilisateur;
+    }
+
     public Enregistrement(int id_enregistrement, Date date, int prix, int fk_produit, int fk_utilisateur) {
         this.id_enregistrement = id_enregistrement;
         this.date = date;
@@ -64,5 +71,16 @@ public class Enregistrement  implements Serializable {
 
     public void setFk_utilisateur(int fk_utilisateur) {
         this.fk_utilisateur = fk_utilisateur;
+    }
+
+    @Override
+    public String toString() {
+        return "Enregistrement{" +
+                "id_enregistrement=" + id_enregistrement +
+                ", date=" + date +
+                ", prix=" + prix +
+                ", fk_produit=" + fk_produit +
+                ", fk_utilisateur=" + fk_utilisateur +
+                '}';
     }
 }

@@ -73,4 +73,16 @@ public class Produit implements Serializable {
     public void setFk_marque(int fk_marque) {
         this.fk_marque = fk_marque;
     }
+
+    @Override
+    public String toString() {
+        return "Produit{" +
+                "id_produit=" + id_produit +
+                ", nom_produit='" + nom_produit + '\'' +
+                ", num_code_barres='" + num_code_barres + '\'' +
+                ", description='" + description + '\'' +
+                ", fk_type=" + fk_type +
+                ", fk_marque=" + fk_marque +
+                '}';
+    }
 }

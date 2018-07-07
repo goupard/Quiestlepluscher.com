@@ -54,7 +54,7 @@ public class Inscription extends AppCompatActivity {
                 }
 
 
-                List<Utilisateur> userFromLogin = UtilisateurDAO.getUtilisateurs(UtilisateurDAO.sqlFindUserByLogin(email));
+                List<Utilisateur> userFromLogin = UtilisateurDAO.getUtilisateurs(Inscription.super.getParent(),UtilisateurDAO.sqlFindUserByLogin(email));
                 if(userFromLogin.size()>0){
                     Toast.makeText(Inscription.this, "Email déjà utilisé.", Toast.LENGTH_SHORT).show();
                     return;
@@ -67,10 +67,6 @@ public class Inscription extends AppCompatActivity {
                 String hash = Md5Getter.md5(password);
                 nouvelInscrit.setHashed_password(hash);
                 nouvelInscrit.setEmail(email);
-
-                Toast.makeText(Inscription.this, "Mot de passe enregistre : " + hash, Toast.LENGTH_SHORT).show();
-                Log.i("INFO","Mot de passe enregistre : " + hash);
-
                 UtilisateurDAO.insertUtilisateur(nouvelInscrit);
                 Intent welcomScreen = new Intent(getApplicationContext(),Welcome_Screen.class);
                 welcomScreen.putExtra("utilisateurConnecte",nouvelInscrit);

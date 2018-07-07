@@ -1,10 +1,12 @@
 package com.example.armand.quiestlepluscher.sqlite.dao;
 
+import android.app.Activity;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 
 import com.example.armand.quiestlepluscher.screen.Connexion;
+import com.example.armand.quiestlepluscher.sqlite.MySQLDataBase;
 import com.example.armand.quiestlepluscher.views.Welcome_Screen;
 import com.example.armand.quiestlepluscher.sqlite.entities.Categorie;
 
@@ -28,26 +30,40 @@ public class CategorieDAO {
 
     public static String sqlGetAllCategories = "SELECT * FROM "+TABLE_NAME+";";
 
-    public static String sqlInitDB = "INSERT INTO "+TABLE_NAME+" (" + id_categorie + "," + nom_categorie + "," + description + ") VALUES (1, \"Boisson\", \"boisson\")," +
-            "(2, \"JEU\", \"les jeux\")," +
-            "(3, \"POISSON FRAIS\", \"les poissons frais\");";
+    public static String[] sqlInitDB = {
+            "INSERT INTO "+TABLE_NAME+" (" + id_categorie + "," + nom_categorie + "," + description + ")" +
+            " VALUES (1, \"Boisson\", \"boisson\");",
+
+            "INSERT INTO "+TABLE_NAME+" (" + id_categorie + "," + nom_categorie + "," + description + ")" +
+            " VALUES (2, \"JEU\", \"les jeux\");",
+
+            "INSERT INTO "+TABLE_NAME+" (" + id_categorie + "," + nom_categorie + "," + description + ")" +
+            " VALUES (3, \"POISSON FRAIS\", \"les poissons frais\");"
+    };
 
     private static String sqlFindCategoryByName(String par_nom_categorie){
-        return "SELECT * FROM " + TABLE_NAME + " WHERE " + nom_categorie + "=" + par_nom_categorie +" ;";
+        return "SELECT * FROM " + TABLE_NAME + " WHERE " + nom_categorie + "= '" + par_nom_categorie +"' ;";
     }
 
-    public static ArrayList<Categorie> getCategories(String query){
+    public static <T extends Activity> ArrayList<Categorie> getCategories(T x,String query){
         ArrayList<Categorie> categories = new ArrayList<>();
-        SQLiteDatabase bd = Connexion.getMysqlDatabase().getReadableDatabase();
-        Cursor c = bd.rawQuery(query,null);
+        SQLiteDatabase bd = null;
+        if(Connexion.getMysqlDatabase() != null) {
+            bd = Connexion.getMysqlDatabase().getReadableDatabase();
+        }
+        else{
+            bd = new MySQLDataBase(x).getReadableDatabase();
+        }        Cursor c = bd.rawQuery(query,null);
         if(c != null) {
             c.moveToFirst();
             do{
-                Categorie categorie = new Categorie();
-                categorie.setId_categorie(Integer.parseInt(c.getString(c.getColumnIndex(id_categorie))));
-                categorie.setNom_categorie(c.getString(c.getColumnIndex(nom_categorie)));
-                categorie.setDescription(c.getString(c.getColumnIndex(description)));
-                categories.add(categorie);
+                if(! c.isAfterLast()) {
+                    Categorie categorie = new Categorie();
+                    categorie.setId_categorie(Integer.parseInt(c.getString(c.getColumnIndex(id_categorie))));
+                    categorie.setNom_categorie(c.getString(c.getColumnIndex(nom_categorie)));
+                    categorie.setDescription(c.getString(c.getColumnIndex(description)));
+                    categories.add(categorie);
+                }
             }while(c.moveToNext());
             c.close();
         }else{

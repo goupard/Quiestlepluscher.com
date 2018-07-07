@@ -1,11 +1,14 @@
 package com.example.armand.quiestlepluscher.sqlite.dao;
 
+import android.app.Activity;
 import android.content.ContentValues;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.os.Bundle;
 import android.util.Log;
 
 import com.example.armand.quiestlepluscher.screen.Connexion;
+import com.example.armand.quiestlepluscher.sqlite.MySQLDataBase;
 import com.example.armand.quiestlepluscher.views.Welcome_Screen;
 import com.example.armand.quiestlepluscher.sqlite.entities.Produit;
 
@@ -25,7 +28,7 @@ public class ProduitDAO {
     private static String fk_type = "fk_type";
     private static String fk_marque = "fk_marque";
 
-    private static String sqlGetAllProduits = "SELECT * FROM "+TABLE_NAME+";";
+    public static String sqlGetAllProduits = "SELECT * FROM "+TABLE_NAME+";";
 
     public static String sqlCreateTableProduits = "CREATE TABLE IF NOT EXISTS "+TABLE_NAME+" ( " +
             id_produit + " INTEGER PRIMARY KEY AUTOINCREMENT ," +
@@ -57,39 +60,53 @@ public class ProduitDAO {
         return produit;
     }
 
-    public static String sqlInitDB = "INSERT INTO "+TABLE_NAME+" (" + id_produit + "," + nom_produit + "," + num_code_barres + "," + description + "," + fk_type + "," + fk_marque +") VALUES (1, \"AGRUM\", \"3124480002570\", \"Une boisson energisante pour les bonhommes\", 1, 1)," +
-            "(2, \"Munchkin\", \"8435407602342\", \"Un jeu pour les bonhommes\", 2, 2);";
+    public static String[] sqlInitDB = {
+
+            "INSERT INTO "+TABLE_NAME+" (" + id_produit + "," + nom_produit + "," + num_code_barres + "," + description + "," + fk_type + "," + fk_marque +") " +
+            "VALUES (1, \"AGRUM\", \"3124480002570\", \"Une boisson energisante pour les bonhommes\", 1, 1); ",
+
+            "INSERT INTO "+TABLE_NAME+" (" + id_produit + "," + nom_produit + "," + num_code_barres + "," + description + "," + fk_type + "," + fk_marque +") " +
+            "VALUES (2, \"Munchkin\",\"8435407602342\", \"Un jeu pour les bonhommes\", 2, 2);"
+    };
 
     public static String sqlFindProduitById(long par_id_produit){
-        return "SELECT * FROM " + TABLE_NAME + " WHERE " + id_produit + "=" + par_id_produit +" ;";
+        return "SELECT * FROM " + TABLE_NAME + " WHERE " + id_produit + "= '" + par_id_produit +"' ;";
     }
 
     public static String sqlFindProduitByNomProduit(String par_nom_produit){
-        return "SELECT * FROM " + TABLE_NAME + " WHERE " + nom_produit + "=" + par_nom_produit +" ;";
+        return "SELECT * FROM " + TABLE_NAME + " WHERE TRIM(" + nom_produit + ") = '" + par_nom_produit.trim() +"' ;";
     }
 
     public static String sqlFindProduitByNomProduitAndMarque(String par_nom_produit, long par_fk_marque){
-        return "SELECT * FROM " + TABLE_NAME + " WHERE " + nom_produit + "=" + par_nom_produit +" and "+ fk_marque +" ="+ par_fk_marque + ";";
+        return "SELECT * FROM " + TABLE_NAME + " WHERE TRIM(" + nom_produit + ") = '" + par_nom_produit.trim() +"' and "+ fk_marque +" = '"+ par_fk_marque + "' ;";
     }
 
     public static String sqlFindProduitByNumCodeBarres(String par_num_code_barres){
-        return "SELECT * FROM " + TABLE_NAME + " WHERE " + num_code_barres + "=" + par_num_code_barres +" ;";
+        return "SELECT * FROM " + TABLE_NAME + " WHERE TRIM(" + num_code_barres + ") = '" + par_num_code_barres.trim() +"' ;";
     }
 
-    public static ArrayList<Produit> getProduits(String query){
+    public static <T extends Activity> ArrayList<Produit> getProduits(T x,String query){
         ArrayList<Produit> produits = new ArrayList<>();
-        SQLiteDatabase bd = Connexion.getMysqlDatabase().getReadableDatabase();
+        SQLiteDatabase bd = null;
+        if(Connexion.getMysqlDatabase() != null) {
+            bd = Connexion.getMysqlDatabase().getReadableDatabase();
+        }
+        else{
+            bd = new MySQLDataBase(x).getReadableDatabase();
+        }
         Cursor c = bd.rawQuery(query,null);
         if(c != null) {
             c.moveToFirst();
-            do{
-                Produit produit = new Produit();
-                produit.setId_produit(Integer.parseInt(c.getString(c.getColumnIndex(id_produit))));
-                produit.setFk_marque(Integer.parseInt(c.getString(c.getColumnIndex(fk_marque))));
-                produit.setDescription(c.getString(c.getColumnIndex(description)));
-                produit.setNom_produit(c.getString(c.getColumnIndex(nom_produit)));
-                produit.setNum_code_barres(c.getString(c.getColumnIndex(num_code_barres)));
-                produits.add(produit);
+            do {
+                if(! c.isAfterLast()) {
+                    Produit produit = new Produit();
+                    produit.setId_produit(Integer.parseInt(c.getString(c.getColumnIndex(id_produit))));
+                    produit.setFk_marque(Integer.parseInt(c.getString(c.getColumnIndex(fk_marque))));
+                    produit.setDescription(c.getString(c.getColumnIndex(description)));
+                    produit.setNom_produit(c.getString(c.getColumnIndex(nom_produit)));
+                    produit.setNum_code_barres(c.getString(c.getColumnIndex(num_code_barres)));
+                    produits.add(produit);
+                }
             }while(c.moveToNext());
             c.close();
         }else{

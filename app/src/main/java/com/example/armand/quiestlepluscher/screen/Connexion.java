@@ -26,12 +26,14 @@ public class Connexion extends AppCompatActivity {
 
 
     private static MySQLDataBase mysqlDatabase;
+    private static Bundle bundle;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mysqlDatabase = new MySQLDataBase(this);
+        bundle = savedInstanceState;
 
         setContentView(R.layout.activity_connexion__screen);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -59,7 +61,7 @@ public class Connexion extends AppCompatActivity {
                     return;
                 }
 
-                List<Utilisateur> utilisateurs = UtilisateurDAO.getUtilisateurs(UtilisateurDAO.sqlFindUserByLogin(email));
+                List<Utilisateur> utilisateurs = UtilisateurDAO.getUtilisateurs(Connexion.super.getParent(),UtilisateurDAO.sqlFindUserByLogin(email));
 
                 if(utilisateurs.isEmpty()){
                     Toast.makeText(Connexion.this, "Email non reconnu.", Toast.LENGTH_SHORT).show();
@@ -84,4 +86,8 @@ public class Connexion extends AppCompatActivity {
         return mysqlDatabase;
     }
 
+
+    public static Bundle getBundle() {
+        return bundle;
+    }
 }
