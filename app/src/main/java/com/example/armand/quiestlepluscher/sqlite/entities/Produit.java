@@ -6,7 +6,7 @@ import java.io.Serializable;
  * Created by ulyss on 12/06/2018.
  */
 
-public class Produit  implements Serializable {
+public class Produit implements Serializable {
     private long id_produit;
     private String nom_produit;
     private String num_code_barres;

@@ -29,7 +29,7 @@ public class TypeDAO {
             id_type + " INTEGER PRIMARY KEY AUTOINCREMENT ," +
             nom_type + " VARCHAR," +
             description + " VARCHAR," +
-            fk_categorie + " INTEGER, FOREIGN KEY(fk_location) REFERENCES " +CategorieDAO.TABLE_NAME + "(" + CategorieDAO.id_categorie + ") );";
+            fk_categorie + " INTEGER, FOREIGN KEY("+fk_categorie+") REFERENCES " +CategorieDAO.TABLE_NAME + "(" + CategorieDAO.id_categorie + ") );";
 
     public static String sqlFindProduitById(long par_id_type){
         return "SELECT * FROM " + TABLE_NAME + " WHERE " + id_type + "=" + par_id_type +" ;";

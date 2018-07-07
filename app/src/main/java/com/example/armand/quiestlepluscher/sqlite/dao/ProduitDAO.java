@@ -32,8 +32,11 @@ public class ProduitDAO {
             nom_produit + " VARCHAR," +
             num_code_barres + " VARCHAR," +
             description + " VARCHAR," +
-            fk_type + " INTEGER, FOREIGN KEY(" + fk_type + ") REFERENCES " +TypeDAO.TABLE_NAME + "(" + TypeDAO.id_type + "), " +
-            fk_marque + " INTEGER, FOREIGN KEY(" + fk_marque + ") REFERENCES " +MarqueDAO.TABLE_NAME + "(" + MarqueDAO.id_marque + ") );";
+            fk_type + " INTEGER, " +
+            fk_marque + " INTEGER,"
+            +" FOREIGN KEY(" + fk_marque + ") REFERENCES " +MarqueDAO.TABLE_NAME + "(" + MarqueDAO.id_marque + ")," +
+             " FOREIGN KEY(" + fk_type + ") REFERENCES " +TypeDAO.TABLE_NAME + "(" + TypeDAO.id_type + ")" +
+            " );";
 
     public static Produit insertProduit(Produit produit){
         SQLiteDatabase bd = Connexion.getMysqlDatabase().getWritableDatabase();

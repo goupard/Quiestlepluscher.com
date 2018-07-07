@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -13,7 +14,6 @@ import com.example.armand.quiestlepluscher.R;
 import com.example.armand.quiestlepluscher.sqlite.dao.UtilisateurDAO;
 import com.example.armand.quiestlepluscher.sqlite.entities.Utilisateur;
 import com.example.armand.quiestlepluscher.tools.Md5Getter;
-import com.example.armand.quiestlepluscher.views.ScannerCodeBarres;
 import com.example.armand.quiestlepluscher.views.Welcome_Screen;
 
 import java.util.List;
@@ -64,11 +64,16 @@ public class Inscription extends AppCompatActivity {
                 nouvelInscrit.setLogin(email);
                 nouvelInscrit.setPrenom(prenom);
                 nouvelInscrit.setNom(nom);
-                nouvelInscrit.setHashed_password(Md5Getter.md5(password));
+                String hash = Md5Getter.md5(password);
+                nouvelInscrit.setHashed_password(hash);
                 nouvelInscrit.setEmail(email);
+
+                Toast.makeText(Inscription.this, "Mot de passe enregistre : " + hash, Toast.LENGTH_SHORT).show();
+                Log.i("INFO","Mot de passe enregistre : " + hash);
 
                 UtilisateurDAO.insertUtilisateur(nouvelInscrit);
                 Intent welcomScreen = new Intent(getApplicationContext(),Welcome_Screen.class);
+                welcomScreen.putExtra("utilisateurConnecte",nouvelInscrit);
                 startActivity(welcomScreen);
             }
         });

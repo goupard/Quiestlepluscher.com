@@ -10,7 +10,7 @@ import java.util.Date;
 public class Enregistrement  implements Serializable {
 
     private long id_enregistrement;
-    private int date;
+    private Date date;
     private int prix;
     private int fk_produit;
     private int fk_utilisateur;
@@ -18,7 +18,7 @@ public class Enregistrement  implements Serializable {
     public Enregistrement() {
     }
 
-    public Enregistrement(int id_enregistrement, int date, int prix, int fk_produit, int fk_utilisateur) {
+    public Enregistrement(int id_enregistrement, Date date, int prix, int fk_produit, int fk_utilisateur) {
         this.id_enregistrement = id_enregistrement;
         this.date = date;
         this.prix = prix;
@@ -34,11 +34,11 @@ public class Enregistrement  implements Serializable {
         this.id_enregistrement = id_enregistrement;
     }
 
-    public int getDate() {
+    public Date getDate() {
         return date;
     }
 
-    public void setDate(int date) {
+    public void setDate(Date date) {
         this.date = date;
     }
 

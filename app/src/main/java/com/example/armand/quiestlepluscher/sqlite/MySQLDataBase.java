@@ -31,15 +31,17 @@ public class MySQLDataBase extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db) {
         Log.i("DB","Initializing DB");
         db.execSQL(CategorieDAO.sqlCreateTableCategorie);
-        db.execSQL(EnregistrementDAO.sqlCreateTableEnregistrements);
+        db.execSQL(UtilisateurDAO.sqlCreateTableUsers);
         db.execSQL(MagasinDAO.sqlCreateTableMagasin);
         db.execSQL(MarqueDAO.sqlCreateTableMarque);
-        db.execSQL(ProduitDAO.sqlCreateTableProduits);
         db.execSQL(TypeDAO.sqlCreateTableTypes);
-        db.execSQL(UtilisateurDAO.sqlCreateTableUsers);
+        db.execSQL(ProduitDAO.sqlCreateTableProduits);
+        db.execSQL(EnregistrementDAO.sqlCreateTableEnregistrements);
+
 
         db.execSQL(CategorieDAO.sqlInitDB);
         db.execSQL(TypeDAO.sqlInitDB);
+        db.execSQL(UtilisateurDAO.sqlInitDB);
     }
 
     @Override

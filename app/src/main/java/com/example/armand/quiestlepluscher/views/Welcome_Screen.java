@@ -55,12 +55,6 @@ public class Welcome_Screen extends AppCompatActivity {
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_Inscription) {
-            Intent intent= new Intent(this,Inscription.class);
-            startActivity(intent);
-        }
-
         if (id == R.id.action_Connexion) {
             Intent intent= new Intent(this,Connexion.class);
             startActivity(intent);

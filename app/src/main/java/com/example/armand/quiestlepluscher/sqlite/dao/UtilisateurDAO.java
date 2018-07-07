@@ -53,13 +53,14 @@ public class UtilisateurDAO {
     }
 
     public static String sqlFindUserByLogin(String par_login){
-        return "SELECT * FROM " + TABLE_NAME + " WHERE " + login + "=" + par_login +" ;";
+        return "SELECT * FROM " + TABLE_NAME + " WHERE TRIM(" + login + ") = '" + par_login.trim() +"'";
     }
 
     public static String sqlGetAllUsers = "SELECT * FROM "+TABLE_NAME+";";
 
 
-    //public static String sqlInitDB = "INSERT INTO "+TABLE_NAME+" (" + id_utilisateur + "," + login + "," + hashed_password +") VALUES ();";
+    public static String sqlInitDB = "INSERT INTO "+TABLE_NAME+" (" + id_utilisateur + "," + login + "," + nom + "," + prenom + "," + email + "," + hashed_password +")" +
+            " VALUES (800,'admin@gmail.com','root','uid0','admin@gmail.com','cc175b9c0f1b6a831c399e269772661');"; // Ligne en dur pour ajouter un administrateur
 
 
     public static ArrayList<Utilisateur> getUtilisateurs(String query){
@@ -69,14 +70,16 @@ public class UtilisateurDAO {
         if(c != null) {
             c.moveToFirst();
             do{
-                Utilisateur utilisateur = new Utilisateur();
-                utilisateur.setId_utilisateur(Integer.parseInt(c.getString(c.getColumnIndex(id_utilisateur))));
-                utilisateur.setLogin(c.getString(c.getColumnIndex(login)));
-                utilisateur.setNom(c.getString(c.getColumnIndex(nom)));
-                utilisateur.setPrenom(c.getString(c.getColumnIndex(prenom)));
-                utilisateur.setEmail(c.getString(c.getColumnIndex(email)));
-                utilisateur.setHashed_password(c.getString(c.getColumnIndex(hashed_password)));
-                utilisateurs.add(utilisateur);
+                if(! c.isAfterLast()) {
+                    Utilisateur utilisateur = new Utilisateur();
+                    utilisateur.setId_utilisateur(Integer.parseInt(c.getString(c.getColumnIndex(id_utilisateur))));
+                    utilisateur.setLogin(c.getString(c.getColumnIndex(login)));
+                    utilisateur.setNom(c.getString(c.getColumnIndex(nom)));
+                    utilisateur.setPrenom(c.getString(c.getColumnIndex(prenom)));
+                    utilisateur.setEmail(c.getString(c.getColumnIndex(email)));
+                    utilisateur.setHashed_password(c.getString(c.getColumnIndex(hashed_password)));
+                    utilisateurs.add(utilisateur);
+                }
             }while(c.moveToNext());
             c.close();
         }else{

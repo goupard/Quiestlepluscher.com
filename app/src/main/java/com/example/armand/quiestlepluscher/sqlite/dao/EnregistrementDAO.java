@@ -28,10 +28,13 @@ public class EnregistrementDAO {
 
     public static String sqlCreateTableEnregistrements = "CREATE TABLE IF NOT EXISTS "+TABLE_NAME+" ( " +
             id_enregistrement + " INTEGER PRIMARY KEY AUTOINCREMENT ," +
-            fk_produit + " INTEGER, FOREIGN KEY(" + fk_produit + ") REFERENCES " +ProduitDAO.TABLE_NAME + " (" + ProduitDAO.id_produit + ")," +
-            date + " INTEGER," +
+            fk_produit + " INTEGER," +
+            date + " DATE," +
             prix + " INTEGER," +
-            fk_utilisateur + " INTEGER, FOREIGN KEY(" + fk_utilisateur + ") REFERENCES " +UtilisateurDAO.TABLE_NAME + " (" + UtilisateurDAO.id_utilisateur+ ") );";
+            fk_utilisateur + " INTEGER,"+
+            " FOREIGN KEY(" + fk_utilisateur + ") REFERENCES " +UtilisateurDAO.TABLE_NAME + " (" + UtilisateurDAO.id_utilisateur+ ")," +
+            " FOREIGN KEY(" + fk_produit + ") REFERENCES " +ProduitDAO.TABLE_NAME + " (" + ProduitDAO.id_produit + ")" +
+            " );";
 
 
     public static Enregistrement insertEnregistrement(Enregistrement enregistrement){
@@ -55,15 +58,15 @@ public class EnregistrementDAO {
     //public static String sqlInitDB = "INSERT INTO "+TABLE_NAME+" (" + id_enregistrement + "," + date + "," + prix + "," + fk_produit + "," + fk_utilisateur + ") VALUES ();";
 
     public static String sqlFindEnregistrementsByProduit(long par_fk_produit){
-        return "SELECT * FROM " + TABLE_NAME + " WHERE " + fk_produit + "=" + par_fk_produit +" ;";
+        return "SELECT * FROM " + TABLE_NAME + " WHERE " + fk_produit + "= '" + par_fk_produit +"' ;";
     }
 
     public static String sqlFindEnregistrementsByProduit(String par_fk_produit){
-        return "SELECT * FROM " + TABLE_NAME + " WHERE " + fk_produit + "=" + par_fk_produit +" ;";
+        return "SELECT * FROM " + TABLE_NAME + " WHERE " + fk_produit + "= '" + par_fk_produit +"' ;";
     }
 
     public static String sqlFindEnregistrementsByUtilisateur(String par_fk_utilisateur){
-        return "SELECT * FROM " + TABLE_NAME + " WHERE " + fk_utilisateur + "=" + par_fk_utilisateur +" ;";
+        return "SELECT * FROM " + TABLE_NAME + " WHERE " + fk_utilisateur + "= '" + par_fk_utilisateur +"' ;";
     }
 
     public static ArrayList<Enregistrement> getEnregistrements(String query){

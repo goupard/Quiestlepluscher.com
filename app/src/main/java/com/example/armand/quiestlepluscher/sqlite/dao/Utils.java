@@ -30,4 +30,8 @@ public class Utils {
 
         return date;
     }
+
+    public static Date getDateFromInt(int timeToFormat){
+        return new Date(timeToFormat);
+    }
 }
