@@ -4,6 +4,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 
+import com.example.armand.quiestlepluscher.screen.Connexion;
 import com.example.armand.quiestlepluscher.views.Welcome_Screen;
 import com.example.armand.quiestlepluscher.sqlite.entities.Categorie;
 
@@ -37,7 +38,7 @@ public class CategorieDAO {
 
     public static ArrayList<Categorie> getCategories(String query){
         ArrayList<Categorie> categories = new ArrayList<>();
-        SQLiteDatabase bd = Welcome_Screen.getMysqlDatabase().getReadableDatabase();
+        SQLiteDatabase bd = Connexion.getMysqlDatabase().getReadableDatabase();
         Cursor c = bd.rawQuery(query,null);
         if(c != null) {
             c.moveToFirst();

@@ -1,10 +1,12 @@
 package com.example.armand.quiestlepluscher.sqlite.entities;
 
+import java.io.Serializable;
+
 /**
  * Created by ulyss on 12/06/2018.
  */
 
-public class Categorie {
+public class Categorie  implements Serializable {
 
     private long id_categorie;
     private String nom_categorie;

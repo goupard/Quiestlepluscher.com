@@ -1,15 +1,16 @@
 package com.example.armand.quiestlepluscher.sqlite.entities;
 
+import java.io.Serializable;
 import java.util.Date;
 
 /**
  * Created by ulyss on 12/06/2018.
  */
 
-public class Enregistrement {
+public class Enregistrement  implements Serializable {
 
     private long id_enregistrement;
-    private Date date;
+    private int date;
     private int prix;
     private int fk_produit;
     private int fk_utilisateur;
@@ -17,7 +18,7 @@ public class Enregistrement {
     public Enregistrement() {
     }
 
-    public Enregistrement(int id_enregistrement, Date date, int prix, int fk_produit, int fk_utilisateur) {
+    public Enregistrement(int id_enregistrement, int date, int prix, int fk_produit, int fk_utilisateur) {
         this.id_enregistrement = id_enregistrement;
         this.date = date;
         this.prix = prix;
@@ -33,11 +34,11 @@ public class Enregistrement {
         this.id_enregistrement = id_enregistrement;
     }
 
-    public Date getDate() {
+    public int getDate() {
         return date;
     }
 
-    public void setDate(Date date) {
+    public void setDate(int date) {
         this.date = date;
     }
 

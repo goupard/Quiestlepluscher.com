@@ -4,6 +4,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 
+import com.example.armand.quiestlepluscher.screen.Connexion;
 import com.example.armand.quiestlepluscher.views.Welcome_Screen;
 import com.example.armand.quiestlepluscher.sqlite.entities.Marque;
 
@@ -41,7 +42,7 @@ public class MarqueDAO {
 
     public static ArrayList<Marque> getMarques(String query){
         ArrayList<Marque> marques = new ArrayList<>();
-        SQLiteDatabase bd = Welcome_Screen.getMysqlDatabase().getReadableDatabase();
+        SQLiteDatabase bd = Connexion.getMysqlDatabase().getReadableDatabase();
         Cursor c = bd.rawQuery(query,null);
         if(c != null) {
             c.moveToFirst();

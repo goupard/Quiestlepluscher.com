@@ -4,6 +4,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 
+import com.example.armand.quiestlepluscher.screen.Connexion;
 import com.example.armand.quiestlepluscher.views.Welcome_Screen;
 import com.example.armand.quiestlepluscher.sqlite.entities.Magasin;
 
@@ -56,7 +57,7 @@ public class MagasinDAO {
 
     public static ArrayList<Magasin> getEnregistrements(String query){
         ArrayList<Magasin> enregistrements = new ArrayList<>();
-        SQLiteDatabase bd = Welcome_Screen.getMysqlDatabase().getReadableDatabase();
+        SQLiteDatabase bd = Connexion.getMysqlDatabase().getReadableDatabase();
         Cursor c = bd.rawQuery(query,null);
         if(c != null) {
             c.moveToFirst();

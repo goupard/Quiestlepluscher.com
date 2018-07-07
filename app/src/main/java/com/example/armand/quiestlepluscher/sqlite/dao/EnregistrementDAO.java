@@ -5,6 +5,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 
+import com.example.armand.quiestlepluscher.screen.Connexion;
 import com.example.armand.quiestlepluscher.views.Welcome_Screen;
 import com.example.armand.quiestlepluscher.sqlite.entities.Enregistrement;
 
@@ -27,14 +28,14 @@ public class EnregistrementDAO {
 
     public static String sqlCreateTableEnregistrements = "CREATE TABLE IF NOT EXISTS "+TABLE_NAME+" ( " +
             id_enregistrement + " INTEGER PRIMARY KEY AUTOINCREMENT ," +
-            fk_produit + " INTEGER, FOREIGN KEY(" + fk_produit + ") REFERENCES " +ProduitDAO.TABLE_NAME + "(" + ProduitDAO.id_produit + ")," +
-            date + " DATE," +
+            fk_produit + " INTEGER, FOREIGN KEY(" + fk_produit + ") REFERENCES " +ProduitDAO.TABLE_NAME + " (" + ProduitDAO.id_produit + ")," +
+            date + " INTEGER," +
             prix + " INTEGER," +
-            fk_utilisateur + " INTEGER, FOREIGN KEY(" + fk_utilisateur + ") REFERENCES " +UtilisateurDAO.TABLE_NAME + "(" + UtilisateurDAO.id_utilisateur+ ") );";
+            fk_utilisateur + " INTEGER, FOREIGN KEY(" + fk_utilisateur + ") REFERENCES " +UtilisateurDAO.TABLE_NAME + " (" + UtilisateurDAO.id_utilisateur+ ") );";
 
 
     public static Enregistrement insertEnregistrement(Enregistrement enregistrement){
-        SQLiteDatabase bd = Welcome_Screen.getMysqlDatabase().getWritableDatabase();
+        SQLiteDatabase bd = Connexion.getMysqlDatabase().getWritableDatabase();
         ContentValues values = new ContentValues();
 
         values.put(date,enregistrement.getDate().toString());
@@ -67,7 +68,7 @@ public class EnregistrementDAO {
 
     public static ArrayList<Enregistrement> getEnregistrements(String query){
         ArrayList<Enregistrement> enregistrements = new ArrayList<>();
-        SQLiteDatabase bd = Welcome_Screen.getMysqlDatabase().getReadableDatabase();
+        SQLiteDatabase bd = Connexion.getMysqlDatabase().getReadableDatabase();
         Cursor c = bd.rawQuery(query,null);
         if(c != null) {
             c.moveToFirst();

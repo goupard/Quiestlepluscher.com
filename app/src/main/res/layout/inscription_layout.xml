@@ -52,7 +52,7 @@
                     android:orientation="horizontal">
 
                     <EditText
-                        android:id="@+id/editText"
+                        android:id="@+id/editTextNom"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_alignParentTop="true"
@@ -60,7 +60,7 @@
                         android:layout_weight="1"
                         android:ems="10"
                         android:inputType="textPersonName"
-                        android:text="Nom" />
+                        android:hint="Nom"/>
                 </LinearLayout>
 
             </LinearLayout>
@@ -93,7 +93,7 @@
                     android:orientation="horizontal">
 
                     <EditText
-                        android:id="@+id/editText3"
+                        android:id="@+id/editTextPrenom"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentTop="true"
@@ -101,7 +101,7 @@
                         android:layout_weight="1"
                         android:ems="10"
                         android:inputType="textPersonName"
-                        android:text="Prénom" />
+                        android:hint="Prénom" />
                 </LinearLayout>
 
             </LinearLayout>
@@ -134,7 +134,7 @@
                     android:orientation="horizontal">
 
                     <EditText
-                        android:id="@+id/editText2"
+                        android:id="@+id/editTextEmail"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentTop="true"
@@ -142,7 +142,7 @@
                         android:layout_weight="1"
                         android:ems="10"
                         android:inputType="textEmailAddress"
-                        android:text="Email" />
+                        android:hint="Email" />
                 </LinearLayout>
 
             </LinearLayout>
@@ -176,13 +176,13 @@
                     android:orientation="horizontal">
 
                     <EditText
-                        android:id="@+id/editText4"
+                        android:id="@+id/editTextPassword"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_alignParentStart="true"
                         android:layout_alignParentTop="true"
                         android:inputType="textPassword"
-                        android:text="Password" />
+                        android:hint="Password" />
                 </LinearLayout>
 
             </LinearLayout>
@@ -215,7 +215,7 @@
                     android:orientation="horizontal">
 
                     <EditText
-                        android:id="@+id/editText5"
+                        android:id="@+id/editTextConfirmation"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentTop="true"
@@ -223,7 +223,7 @@
                         android:layout_weight="1"
                         android:ems="10"
                         android:inputType="textPassword"
-                        android:text="Password" />
+                        android:hint="Password" />
                 </LinearLayout>
 
             </LinearLayout>
@@ -234,7 +234,7 @@
                 android:orientation="horizontal">
 
                 <Button
-                    android:id="@+id/button"
+                    android:id="@+id/buttonConfirmerInscription"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"

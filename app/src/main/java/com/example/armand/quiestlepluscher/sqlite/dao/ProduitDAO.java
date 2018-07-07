@@ -5,6 +5,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 
+import com.example.armand.quiestlepluscher.screen.Connexion;
 import com.example.armand.quiestlepluscher.views.Welcome_Screen;
 import com.example.armand.quiestlepluscher.sqlite.entities.Produit;
 
@@ -35,7 +36,7 @@ public class ProduitDAO {
             fk_marque + " INTEGER, FOREIGN KEY(" + fk_marque + ") REFERENCES " +MarqueDAO.TABLE_NAME + "(" + MarqueDAO.id_marque + ") );";
 
     public static Produit insertProduit(Produit produit){
-        SQLiteDatabase bd = Welcome_Screen.getMysqlDatabase().getWritableDatabase();
+        SQLiteDatabase bd = Connexion.getMysqlDatabase().getWritableDatabase();
         ContentValues values = new ContentValues();
 
         values.put(nom_produit,produit.getNom_produit());
@@ -73,7 +74,7 @@ public class ProduitDAO {
 
     public static ArrayList<Produit> getProduits(String query){
         ArrayList<Produit> produits = new ArrayList<>();
-        SQLiteDatabase bd = Welcome_Screen.getMysqlDatabase().getReadableDatabase();
+        SQLiteDatabase bd = Connexion.getMysqlDatabase().getReadableDatabase();
         Cursor c = bd.rawQuery(query,null);
         if(c != null) {
             c.moveToFirst();

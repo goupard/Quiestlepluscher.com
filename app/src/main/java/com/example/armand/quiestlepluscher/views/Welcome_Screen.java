@@ -17,7 +17,6 @@ import com.example.armand.quiestlepluscher.sqlite.*;
 
 public class Welcome_Screen extends AppCompatActivity {
 
-    private static MySQLDataBase mysqlDatabase;
 
 
 
@@ -28,7 +27,6 @@ public class Welcome_Screen extends AppCompatActivity {
         setContentView(R.layout.activity_welcome__screen);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        mysqlDatabase = new MySQLDataBase(this);
 
         Button button = (Button) findViewById(R.id.buttonScanCodeBarres);
         button.setOnClickListener(new View.OnClickListener() {
@@ -42,9 +40,6 @@ public class Welcome_Screen extends AppCompatActivity {
     }
 
 
-    public static MySQLDataBase getMysqlDatabase() {
-        return mysqlDatabase;
-    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
