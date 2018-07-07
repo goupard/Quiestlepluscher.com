@@ -39,9 +39,12 @@ public class MySQLDataBase extends SQLiteOpenHelper {
         db.execSQL(EnregistrementDAO.sqlCreateTableEnregistrements);
 
 
+        db.execSQL(MarqueDAO.sqlInitDB);
         db.execSQL(CategorieDAO.sqlInitDB);
         db.execSQL(TypeDAO.sqlInitDB);
+
         db.execSQL(UtilisateurDAO.sqlInitDB);
+        db.execSQL(ProduitDAO.sqlInitDB);
     }
 
     @Override

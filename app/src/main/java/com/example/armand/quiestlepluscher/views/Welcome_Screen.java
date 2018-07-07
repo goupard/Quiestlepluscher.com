@@ -37,6 +37,14 @@ public class Welcome_Screen extends AppCompatActivity {
             }
         });
 
+        Button buttonSearch = (Button) findViewById(R.id.buttonChercherProduit);
+        buttonSearch.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent searchProduct = new Intent(getApplicationContext(),Search_Product.class);
+                startActivity(searchProduct);
+            }
+        });
     }
 
 
@@ -47,6 +55,8 @@ public class Welcome_Screen extends AppCompatActivity {
         getMenuInflater().inflate(R.menu.menu_welcome__screen, menu);
         return true;
     }
+
+
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {

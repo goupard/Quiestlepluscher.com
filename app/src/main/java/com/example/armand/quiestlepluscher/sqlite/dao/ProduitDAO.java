@@ -57,7 +57,8 @@ public class ProduitDAO {
         return produit;
     }
 
-    //public static String sqlInitDB = "INSERT INTO "+TABLE_NAME+" (" + id_produit + "," + nom_produit + "," + num_code_barres + "," + description + "," + fk_type + "," + fk_marque +") VALUES ();";
+    public static String sqlInitDB = "INSERT INTO "+TABLE_NAME+" (" + id_produit + "," + nom_produit + "," + num_code_barres + "," + description + "," + fk_type + "," + fk_marque +") VALUES (1, \"AGRUM\", \"3124480002570\", \"Une boisson energisante pour les bonhommes\", 1, 1)," +
+            "(2, \"Munchkin\", \"8435407602342\", \"Un jeu pour les bonhommes\", 2, 2);";
 
     public static String sqlFindProduitById(long par_id_produit){
         return "SELECT * FROM " + TABLE_NAME + " WHERE " + id_produit + "=" + par_id_produit +" ;";

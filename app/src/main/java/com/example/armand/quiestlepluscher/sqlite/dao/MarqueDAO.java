@@ -30,7 +30,8 @@ public class MarqueDAO {
             loc_logo + " VARCHAR," +
             description + " VARCHAR );";
 
-    //public static String sqlInitDB = "INSERT INTO " + TABLE_NAME + " (" + id_marque + "," + nom_marque + "," + loc_logo + "," + description + ") VALUES ();";
+    public static String sqlInitDB = "INSERT INTO " + TABLE_NAME + " (" + id_marque + "," + nom_marque + "," + loc_logo + "," + description + ") VALUES (1, \"Schweppes\", \"tttt\",\"schweppes\")," +
+            "(2, \"EDGE\", \"tttt\",\"edge\");";
 
     public static String sqlFindMagasinById(long par_id_marque){
         return "SELECT * FROM " + TABLE_NAME + " WHERE " + id_marque + "=" + par_id_marque +" ;";

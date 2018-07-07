@@ -28,8 +28,8 @@ public class CategorieDAO {
 
     public static String sqlGetAllCategories = "SELECT * FROM "+TABLE_NAME+";";
 
-    public static String sqlInitDB = "INSERT INTO "+TABLE_NAME+" (" + id_categorie + "," + nom_categorie + "," + description + ") VALUES (1, \"LEGUMES\", \"les legumes\")," +
-            "(2, \"VIANDE\", \"les viandes\")," +
+    public static String sqlInitDB = "INSERT INTO "+TABLE_NAME+" (" + id_categorie + "," + nom_categorie + "," + description + ") VALUES (1, \"Boisson\", \"boisson\")," +
+            "(2, \"JEU\", \"les jeux\")," +
             "(3, \"POISSON FRAIS\", \"les poissons frais\");";
 
     private static String sqlFindCategoryByName(String par_nom_categorie){
