@@ -1,26 +1,25 @@
-package com.example.armand.quiestlepluscher.sqlite.entities;
+package com.example.armand.quiestlepluscher.entities;
+
+import android.arch.persistence.room.ColumnInfo;
+import android.arch.persistence.room.Entity;
+import android.arch.persistence.room.PrimaryKey;
 
 import java.io.Serializable;
 
 /**
  * Created by ulyss on 12/06/2018.
  */
-
+@Entity(tableName = "marque")
 public class Marque  implements Serializable {
+    @PrimaryKey(autoGenerate = true)
+    @ColumnInfo(name = "id_marque")
     private long id_marque;
+    @ColumnInfo(name = "nom_marque")
     private String nom_marque;
+    @ColumnInfo(name = "loc_logo")
     private String loc_logo;
+    @ColumnInfo(name = "description")
     private String description;
-
-    public Marque() {
-    }
-
-    public Marque(int id_marque, String nom_marque, String loc_logo, String description) {
-        this.id_marque = id_marque;
-        this.nom_marque = nom_marque;
-        this.loc_logo = loc_logo;
-        this.description = description;
-    }
 
     public long getId_marque() {
         return id_marque;

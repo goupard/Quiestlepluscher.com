@@ -1,3 +1,4 @@
+/*
 package com.example.armand.quiestlepluscher.sqlite.dao;
 
 import android.app.Activity;
@@ -8,23 +9,24 @@ import android.util.Log;
 
 import com.example.armand.quiestlepluscher.screen.Connexion;
 import com.example.armand.quiestlepluscher.sqlite.MySQLDataBase;
-import com.example.armand.quiestlepluscher.views.Welcome_Screen;
-import com.example.armand.quiestlepluscher.sqlite.entities.Enregistrement;
+import com.example.armand.quiestlepluscher.entities.Enregistrement;
 
 import java.util.ArrayList;
 
+*/
 /**
  * Created by ulyss on 12/06/2018.
- */
+ *//*
+
 
 public class EnregistrementDAO {
     public static String TABLE_NAME = "T_ENREGISTREMENTS";
 
     public static String id_enregistrement = "id_enregistrement";
-    private static String date = "date";
-    private static String prix = "prix";
-    private static String fk_produit = "fk_produit";
-    private static String fk_utilisateur = "fk_utilisateur";
+    public static String date = "date";
+    public static String prix = "prix";
+    public static String fk_produit = "fk_produit";
+    public static String fk_utilisateur = "fk_utilisateur";
 
     private static String sqlGetAllEnregistrements = "SELECT * FROM "+TABLE_NAME+";";
 
@@ -100,3 +102,4 @@ public class EnregistrementDAO {
         return enregistrements;
     }
 }
+*/

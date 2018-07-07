@@ -1,32 +1,33 @@
+/*
 package com.example.armand.quiestlepluscher.sqlite.dao;
 
 import android.app.Activity;
 import android.content.ContentValues;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.os.Bundle;
 import android.util.Log;
 
 import com.example.armand.quiestlepluscher.screen.Connexion;
 import com.example.armand.quiestlepluscher.sqlite.MySQLDataBase;
-import com.example.armand.quiestlepluscher.views.Welcome_Screen;
-import com.example.armand.quiestlepluscher.sqlite.entities.Produit;
+import com.example.armand.quiestlepluscher.entities.Produit;
 
 import java.util.ArrayList;
 
+*/
 /**
  * Created by ulyss on 12/06/2018.
- */
+ *//*
+
 
 public class ProduitDAO {
     public static String TABLE_NAME = "T_PRODUIT";
 
     public static String id_produit = "id_produit";
-    private static String nom_produit = "nom_produit";
-    private static String num_code_barres = "num_code_barres";
-    private static String description = "description";
-    private static String fk_type = "fk_type";
-    private static String fk_marque = "fk_marque";
+    public static String nom_produit = "nom_produit";
+    public static String num_code_barres = "num_code_barres";
+    public static String description = "description";
+    public static String fk_type = "fk_type";
+    public static String fk_marque = "fk_marque";
 
     public static String sqlGetAllProduits = "SELECT * FROM "+TABLE_NAME+";";
 
@@ -117,3 +118,4 @@ public class ProduitDAO {
 
 
 }
+*/

@@ -1,3 +1,4 @@
+/*
 package com.example.armand.quiestlepluscher.sqlite.dao;
 
 import android.app.Activity;
@@ -7,22 +8,23 @@ import android.util.Log;
 
 import com.example.armand.quiestlepluscher.screen.Connexion;
 import com.example.armand.quiestlepluscher.sqlite.MySQLDataBase;
-import com.example.armand.quiestlepluscher.views.Welcome_Screen;
-import com.example.armand.quiestlepluscher.sqlite.entities.Marque;
+import com.example.armand.quiestlepluscher.entities.Marque;
 
 import java.util.ArrayList;
 
+*/
 /**
  * Created by ulyss on 12/06/2018.
- */
+ *//*
+
 
 public class MarqueDAO {
     public static String TABLE_NAME = "T_MARQUE";
 
     public static String id_marque = "id_marque";
-    private static String nom_marque = "nom_marque";
-    private static String loc_logo = "loc_logo";
-    private static String description = "description";
+    public static String nom_marque = "nom_marque";
+    public static String loc_logo = "loc_logo";
+    public static String description = "description";
 
     private static String sqlGetAllMarques = "SELECT * FROM "+TABLE_NAME+";";
 
@@ -81,3 +83,4 @@ public class MarqueDAO {
 
 
 }
+*/

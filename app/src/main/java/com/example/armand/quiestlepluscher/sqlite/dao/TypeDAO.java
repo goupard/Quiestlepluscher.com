@@ -1,3 +1,4 @@
+/*
 package com.example.armand.quiestlepluscher.sqlite.dao;
 
 import android.app.Activity;
@@ -7,22 +8,23 @@ import android.util.Log;
 
 import com.example.armand.quiestlepluscher.screen.Connexion;
 import com.example.armand.quiestlepluscher.sqlite.MySQLDataBase;
-import com.example.armand.quiestlepluscher.views.Welcome_Screen;
-import com.example.armand.quiestlepluscher.sqlite.entities.Type;
+import com.example.armand.quiestlepluscher.entities.Type;
 
 import java.util.ArrayList;
 
+*/
 /**
  * Created by ulyss on 12/06/2018.
- */
+ *//*
+
 
 public class TypeDAO {
     public static String TABLE_NAME = "T_TYPE";
 
     public static String id_type = "id_type";
-    private static String nom_type = "nom_type";
-    private static String description = "description";
-    private static String fk_categorie = "fk_categorie";
+    public static String nom_type = "nom_type";
+    public static String description = "description";
+    public static String fk_categorie = "fk_categorie";
 
     public static String sqlGetAllTypes = "SELECT * FROM "+TABLE_NAME+";";
 
@@ -81,3 +83,4 @@ public class TypeDAO {
         return types;
     }
 }
+*/

@@ -1,3 +1,4 @@
+/*
 package com.example.armand.quiestlepluscher.sqlite.dao;
 
 import android.app.Activity;
@@ -7,23 +8,24 @@ import android.util.Log;
 
 import com.example.armand.quiestlepluscher.screen.Connexion;
 import com.example.armand.quiestlepluscher.sqlite.MySQLDataBase;
-import com.example.armand.quiestlepluscher.views.Welcome_Screen;
-import com.example.armand.quiestlepluscher.sqlite.entities.Magasin;
+import com.example.armand.quiestlepluscher.entities.Magasin;
 
 import java.util.ArrayList;
 
+*/
 /**
  * Created by ulyss on 12/06/2018.
- */
+ *//*
+
 
 public class MagasinDAO {
     public static String TABLE_NAME = "T_MAGASIN";
 
     public static String id_magasin = "id_magasin";
-    private static String nom_magasin = "nom_magasin";
-    private static String localisation = "localisation";
-    private static String description = "description";
-    private static String nom_franchise = "nom_franchise";
+    public static String nom_magasin = "nom_magasin";
+    public static String localisation = "localisation";
+    public static String description = "description";
+    public static String nom_franchise = "nom_franchise";
 
     private static String sqlGetAllMagasins = "SELECT * FROM "+TABLE_NAME+";";
 
@@ -88,3 +90,4 @@ public class MagasinDAO {
     }
 
 }
+*/

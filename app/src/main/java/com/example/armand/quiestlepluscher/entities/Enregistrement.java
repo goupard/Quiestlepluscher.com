@@ -1,37 +1,36 @@
-package com.example.armand.quiestlepluscher.sqlite.entities;
+package com.example.armand.quiestlepluscher.entities;
+
+import android.arch.persistence.room.ColumnInfo;
+import android.arch.persistence.room.Entity;
+import android.arch.persistence.room.ForeignKey;
+import android.arch.persistence.room.PrimaryKey;
 
 import java.io.Serializable;
 import java.util.Date;
 
+import static android.arch.persistence.room.ForeignKey.CASCADE;
+
+
 /**
  * Created by ulyss on 12/06/2018.
  */
+@Entity(tableName = "enregistrement"/*, foreignKeys = {@ForeignKey(entity = Produit.class, parentColumns = "id_produit", childColumns = "fk_produit", onDelete = CASCADE),
+                                                     @ForeignKey(entity = Utilisateur.class, parentColumns = "id_utilisateur", childColumns = "fk_utilisateurs", onDelete = CASCADE)}*/)
+
 
 public class Enregistrement  implements Serializable {
 
+    @PrimaryKey(autoGenerate = true)
+    @ColumnInfo(name = "id_enregistrement")
     private long id_enregistrement;
-    private Date date;
+    @ColumnInfo(name = "date")
+    private int date;
+    @ColumnInfo(name = "prix")
     private int prix;
+    @ColumnInfo(name = "fk_produit")
     private int fk_produit;
+    @ColumnInfo(name = "fk_utilisateurs")
     private int fk_utilisateur;
-
-    public Enregistrement() {
-    }
-
-    public Enregistrement(Date date, int prix, int fk_produit, int fk_utilisateur) {
-        this.date = date;
-        this.prix = prix;
-        this.fk_produit = fk_produit;
-        this.fk_utilisateur = fk_utilisateur;
-    }
-
-    public Enregistrement(int id_enregistrement, Date date, int prix, int fk_produit, int fk_utilisateur) {
-        this.id_enregistrement = id_enregistrement;
-        this.date = date;
-        this.prix = prix;
-        this.fk_produit = fk_produit;
-        this.fk_utilisateur = fk_utilisateur;
-    }
 
     public long getId_enregistrement() {
         return id_enregistrement;
@@ -41,11 +40,11 @@ public class Enregistrement  implements Serializable {
         this.id_enregistrement = id_enregistrement;
     }
 
-    public Date getDate() {
+    public int getDate() {
         return date;
     }
 
-    public void setDate(Date date) {
+    public void setDate(int date) {
         this.date = date;
     }
 

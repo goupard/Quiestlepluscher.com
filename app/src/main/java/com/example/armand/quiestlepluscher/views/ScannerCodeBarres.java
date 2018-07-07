@@ -1,6 +1,5 @@
 package com.example.armand.quiestlepluscher.views;
 
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -12,12 +11,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.widget.Toast;
 
-import com.example.armand.quiestlepluscher.sqlite.MySQLDataBase;
-import com.example.armand.quiestlepluscher.sqlite.dao.ProduitDAO;
-import com.example.armand.quiestlepluscher.sqlite.entities.Produit;
+import com.example.armand.quiestlepluscher.entities.Produit;
+import com.example.armand.quiestlepluscher.room.AppDatabase;
 import com.google.zxing.Result;
-
-import java.util.List;
 
 import me.dm7.barcodescanner.zxing.ZXingScannerView;
 
@@ -29,7 +25,7 @@ import static android.Manifest.permission.CAMERA;
 
 public class ScannerCodeBarres extends AppCompatActivity implements ZXingScannerView.ResultHandler{
 
-    private static MySQLDataBase mysqlDatabase;
+    AppDatabase appDatabase;
 
     private static final int REQUEST_CAMERA = 1;
     private static ZXingScannerView scannerView;
@@ -37,8 +33,7 @@ public class ScannerCodeBarres extends AppCompatActivity implements ZXingScanner
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Context context = getApplicationContext();
-        mysqlDatabase = new MySQLDataBase(this);
+        appDatabase = AppDatabase.getAppDatabase(this);
         scannerView = new ZXingScannerView(this);
         setContentView(scannerView);
 
@@ -130,9 +125,10 @@ public class ScannerCodeBarres extends AppCompatActivity implements ZXingScanner
         Log.d("QRCodeScanner", result.getText());
         Log.d("QRCodeScanner", result.getBarcodeFormat().toString());
 
-        List<Produit> produits = ProduitDAO.getProduits(this,ProduitDAO.sqlFindProduitByNumCodeBarres(myResult));
+        //List<Produit> produits = ProduitDAO.getProduits(this,ProduitDAO.sqlFindProduitByNumCodeBarres(myResult));
+        Produit produit = appDatabase.produitDao().findByNumCodeBarres(myResult);
 
-        if(produits.size() == 0){
+        if(produit == null){
             Intent resultScan= new Intent(this,UnknownScan.class);
             resultScan.putExtra("barcode",myResult);
             startActivity(resultScan);

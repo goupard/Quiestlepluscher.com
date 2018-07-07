@@ -1,25 +1,23 @@
-package com.example.armand.quiestlepluscher.sqlite.entities;
+package com.example.armand.quiestlepluscher.entities;
+
+import android.arch.persistence.room.ColumnInfo;
+import android.arch.persistence.room.Entity;
+import android.arch.persistence.room.PrimaryKey;
 
 import java.io.Serializable;
 
 /**
  * Created by ulyss on 12/06/2018.
  */
-
+@Entity(tableName = "categorie")
 public class Categorie  implements Serializable {
-
+    @PrimaryKey(autoGenerate = true)
+    @ColumnInfo(name = "id_categorie")
     private long id_categorie;
+    @ColumnInfo(name = "nom_categorie")
     private String nom_categorie;
+    @ColumnInfo(name = "description")
     private String description;
-
-    public Categorie() {
-    }
-
-    public Categorie(int id_categorie, String nom_categorie, String description) {
-        this.id_categorie = id_categorie;
-        this.nom_categorie = nom_categorie;
-        this.description = description;
-    }
 
     public long getId_categorie() {
         return id_categorie;

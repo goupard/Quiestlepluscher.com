@@ -1,3 +1,4 @@
+/*
 package com.example.armand.quiestlepluscher.sqlite.dao;
 
 import android.app.Activity;
@@ -7,21 +8,22 @@ import android.util.Log;
 
 import com.example.armand.quiestlepluscher.screen.Connexion;
 import com.example.armand.quiestlepluscher.sqlite.MySQLDataBase;
-import com.example.armand.quiestlepluscher.views.Welcome_Screen;
-import com.example.armand.quiestlepluscher.sqlite.entities.Categorie;
+import com.example.armand.quiestlepluscher.entities.Categorie;
 
 import java.util.ArrayList;
 
+*/
 /**
  * Created by ulyss on 12/06/2018.
- */
+ *//*
+
 
 public class CategorieDAO {
     public static String TABLE_NAME = "T_CATEGORIE";
 
     public static String id_categorie = "id_categorie";
-    private static String nom_categorie = "nom_categorie";
-    private static String description = "description";
+    public static String nom_categorie = "nom_categorie";
+    public static String description = "description";
 
     public static String sqlCreateTableCategorie = "CREATE TABLE IF NOT EXISTS "+TABLE_NAME+" ( " +
             id_categorie + " INTEGER PRIMARY KEY AUTOINCREMENT ," +
@@ -75,3 +77,4 @@ public class CategorieDAO {
 
 
 }
+*/

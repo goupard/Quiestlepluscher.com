@@ -11,15 +11,12 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.example.armand.quiestlepluscher.R;
-import com.example.armand.quiestlepluscher.sqlite.dao.EnregistrementDAO;
-import com.example.armand.quiestlepluscher.sqlite.dao.MarqueDAO;
-import com.example.armand.quiestlepluscher.sqlite.dao.ProduitDAO;
-import com.example.armand.quiestlepluscher.sqlite.dao.TypeDAO;
-import com.example.armand.quiestlepluscher.sqlite.entities.Enregistrement;
-import com.example.armand.quiestlepluscher.sqlite.entities.Marque;
-import com.example.armand.quiestlepluscher.sqlite.entities.Produit;
-import com.example.armand.quiestlepluscher.sqlite.entities.Type;
-import com.example.armand.quiestlepluscher.sqlite.entities.Utilisateur;
+import com.example.armand.quiestlepluscher.entities.Enregistrement;
+import com.example.armand.quiestlepluscher.entities.Marque;
+import com.example.armand.quiestlepluscher.entities.Produit;
+import com.example.armand.quiestlepluscher.entities.Type;
+import com.example.armand.quiestlepluscher.entities.Utilisateur;
+import com.example.armand.quiestlepluscher.room.AppDatabase;
 
 import java.util.Date;
 import java.util.List;
@@ -34,6 +31,7 @@ public class UnknownScan extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_unknownscan__screen);
+        final AppDatabase appDatabase = AppDatabase.getAppDatabase(this);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         Intent intent = getIntent();
@@ -57,20 +55,21 @@ public class UnknownScan extends AppCompatActivity {
                 String prix = ((EditText) findViewById(R.id.editPrixProduit)).getText().toString();
 
                 Marque marqueProduit = null;
-                List<Marque> marques = MarqueDAO.getMarques(UnknownScan.super.getParent(),MarqueDAO.sqlFindMarqueByNomMarque(marqueProduitString));
-                for(Marque marque : marques){
-                    if(marque.getNom_marque().equals(marqueProduitString)){
+                if(!marqueProduitString.isEmpty()) {
+                    Marque marque = appDatabase.marqueDao().findByNom(marqueProduitString);
+                    if (marque != null) {
                         marqueProduit = marque;
                         foundMarque = true;
                     }
                 }
-
                 Type typeProduit = null;
-                List<Type> types = TypeDAO.getTypes(UnknownScan.super.getParent(),TypeDAO.sqlGetAllTypes);
-                for(Type type : types){
-                    if(type.getNom_type().equals(typeProduitString)){
-                        typeProduit = type;
-                        foundType = true;
+                if(!typeProduitString.isEmpty()) {
+                    List<Type> types = appDatabase.typeDao().getAll();
+                    for (Type type : types) {
+                        if (type.getNom_type().equals(typeProduitString)) {
+                            typeProduit = type;
+                            foundType = true;
+                        }
                     }
                 }
 
@@ -79,6 +78,8 @@ public class UnknownScan extends AppCompatActivity {
                 produit.setNum_code_barres(barcode);
                 produit.setNom_produit(nomProduit);
                 produit.setDescription(descriptionProduit);
+                produit.setFk_type(0); //Ajoute un type vide
+                produit.setFk_marque(0); // ajoute une marque vide
                 if(foundMarque) {
                     produit.setFk_marque((int) marqueProduit.getId_marque());
                 }
@@ -86,13 +87,19 @@ public class UnknownScan extends AppCompatActivity {
                     produit.setFk_type((int) typeProduit.getId_type());
                 }
 
-                produit = ProduitDAO.insertProduit(produit);
+                //produit = ProduitDAO.insertProduit(produit);
+                appDatabase.produitDao().insertAll(produit);
 
-                Enregistrement enregistrement = new Enregistrement(new Date(),Integer.parseInt(prix),(int) produit.getId_produit(),(int) utilisateurConnecte.getId_utilisateur());
+                Enregistrement enregistrement = new Enregistrement();
+                enregistrement.setDate((int)System.currentTimeMillis());
+                enregistrement.setPrix(Integer.parseInt(prix));
+                enregistrement.setFk_produit((int) produit.getId_produit());
+                enregistrement.setFk_utilisateur((int) utilisateurConnecte.getId_utilisateur());
 
-                Enregistrement e = EnregistrementDAO.insertEnregistrement(enregistrement);
+                //Enregistrement e = EnregistrementDAO.insertEnregistrement(enregistrement);
+                appDatabase.enregistrementDao().insertAll(enregistrement);
 
-                Log.i("INFO","Enregistrement d'un enregistrement : " +e);
+                Log.i("INFO","Enregistrement d'un enregistrement : " + enregistrement);
                 Log.i("INFO","Enregistrement d'un produit : " + produit);
 
 

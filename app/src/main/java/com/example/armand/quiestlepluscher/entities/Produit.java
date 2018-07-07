@@ -1,30 +1,30 @@
-package com.example.armand.quiestlepluscher.sqlite.entities;
+package com.example.armand.quiestlepluscher.entities;
+
+import android.arch.persistence.room.ColumnInfo;
+import android.arch.persistence.room.Entity;
+import android.arch.persistence.room.PrimaryKey;
 
 import java.io.Serializable;
 
 /**
  * Created by ulyss on 12/06/2018.
  */
-
+@Entity(tableName = "produit" /*, foreignKeys = {@ForeignKey(entity = Type.class, parentColumns = "id_type", childColumns = "fk_type", onDelete = CASCADE),
+                                               @ForeignKey(entity = Marque.class, parentColumns = "id_marque", childColumns = "fk_marque", onDelete = CASCADE)}*/)
 public class Produit implements Serializable {
+    @PrimaryKey(autoGenerate = true)
+    @ColumnInfo(name = "id_produit")
     private long id_produit;
+    @ColumnInfo(name = "nom_produit")
     private String nom_produit;
+    @ColumnInfo(name = "num_code_barres")
     private String num_code_barres;
+    @ColumnInfo(name = "description")
     private String description;
+    @ColumnInfo(name = "fk_type")
     private int fk_type;
+    @ColumnInfo(name = "fk_marque")
     private int fk_marque;
-
-    public Produit() {
-    }
-
-    public Produit(int id_produit, String nom_produit, String num_code_barres, String description, int fk_type, int fk_marque) {
-        this.id_produit = id_produit;
-        this.nom_produit = nom_produit;
-        this.num_code_barres = num_code_barres;
-        this.description = description;
-        this.fk_type = fk_type;
-        this.fk_marque = fk_marque;
-    }
 
     public long getId_produit() {
         return id_produit;

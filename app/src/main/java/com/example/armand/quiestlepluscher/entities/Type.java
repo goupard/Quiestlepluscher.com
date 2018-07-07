@@ -1,26 +1,29 @@
-package com.example.armand.quiestlepluscher.sqlite.entities;
+package com.example.armand.quiestlepluscher.entities;
+
+import android.arch.persistence.room.ColumnInfo;
+import android.arch.persistence.room.Entity;
+import android.arch.persistence.room.ForeignKey;
+import android.arch.persistence.room.PrimaryKey;
 
 import java.io.Serializable;
+
+import static android.arch.persistence.room.ForeignKey.CASCADE;
 
 /**
  * Created by ulyss on 12/06/2018.
  */
-
+@Entity(tableName = "type",
+        foreignKeys = {@ForeignKey(entity = Categorie.class, parentColumns = "id_categorie", childColumns = "fk_categorie", onDelete = CASCADE)})
 public class Type  implements Serializable {
+    @PrimaryKey(autoGenerate = true)
+    @ColumnInfo(name = "id_type")
     private long id_type;
+    @ColumnInfo(name = "nom_type")
     private String nom_type;
+    @ColumnInfo(name = "description")
     private String description;
+    @ColumnInfo(name = "fk_categorie")
     private int fk_categorie;
-
-    public Type() {
-    }
-
-    public Type(int id_type, String nom_type, String description, int fk_categorie) {
-        this.id_type = id_type;
-        this.nom_type = nom_type;
-        this.description = description;
-        this.fk_categorie = fk_categorie;
-    }
 
     public long getId_type() {
         return id_type;

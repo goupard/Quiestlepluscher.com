@@ -10,13 +10,13 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.example.armand.quiestlepluscher.R;
-import com.example.armand.quiestlepluscher.sqlite.MySQLDataBase;
-import com.example.armand.quiestlepluscher.sqlite.dao.UtilisateurDAO;
-import com.example.armand.quiestlepluscher.sqlite.entities.Utilisateur;
+import com.example.armand.quiestlepluscher.entities.Categorie;
+import com.example.armand.quiestlepluscher.entities.Marque;
+import com.example.armand.quiestlepluscher.entities.Type;
+import com.example.armand.quiestlepluscher.entities.Utilisateur;
+import com.example.armand.quiestlepluscher.room.AppDatabase;
 import com.example.armand.quiestlepluscher.tools.Md5Getter;
 import com.example.armand.quiestlepluscher.views.Welcome_Screen;
-
-import java.util.List;
 
 /**
  * Created by armand on 25/06/2018.
@@ -25,14 +25,37 @@ import java.util.List;
 public class Connexion extends AppCompatActivity {
 
 
-    private static MySQLDataBase mysqlDatabase;
+    //private static MySQLDataBase mysqlDatabase;
+    private AppDatabase appDatabase;
+
     private static Bundle bundle;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mysqlDatabase = new MySQLDataBase(this);
+        appDatabase = AppDatabase.getAppDatabase(this);
+
+        Marque marque = new Marque();
+        marque.setDescription("");
+        marque.setLoc_logo("");
+        marque.setNom_marque("");
+        appDatabase.marqueDao().insertAll(marque);
+
+        Categorie categorie = new Categorie();
+        categorie.setDescription("");
+        categorie.setNom_categorie("");
+
+        appDatabase.categorieDao().insertAll(categorie);
+
+        categorie = appDatabase.categorieDao().getAll().get(0);
+
+        Type type = new Type();
+        type.setDescription("");
+        type.setNom_type("");
+        type.setFk_categorie((int)categorie.getId_categorie());
+        appDatabase.typeDao().insertAll(type);
+        //mysqlDatabase = new MySQLDataBase(this);
         bundle = savedInstanceState;
 
         setContentView(R.layout.activity_connexion__screen);
@@ -61,31 +84,35 @@ public class Connexion extends AppCompatActivity {
                     return;
                 }
 
-                List<Utilisateur> utilisateurs = UtilisateurDAO.getUtilisateurs(Connexion.super.getParent(),UtilisateurDAO.sqlFindUserByLogin(email));
+                //List<Utilisateur> utilisateurs = UtilisateurDAO.getUtilisateurs(Connexion.super.getParent(),UtilisateurDAO.sqlFindUserByLogin(email));
+                Utilisateur utilisateur = appDatabase.userDao().findByLogin(email);
 
-                if(utilisateurs.isEmpty()){
+
+                if(utilisateur == null){
                     Toast.makeText(Connexion.this, "Email non reconnu.", Toast.LENGTH_SHORT).show();
                     return;
                 }
 
-                Utilisateur user = utilisateurs.get(0);
-                String hashedPass = user.getHashed_password();
+                String hashedPass = utilisateur.getHashed_password();
                 if(!Md5Getter.md5(motDePasse).equals(hashedPass)){
                     Toast.makeText(Connexion.this, "Les mots de passe ne correspondent pas.", Toast.LENGTH_SHORT).show();
                     return;
                 }
 
                 Intent welcomScreen = new Intent(getApplicationContext(),Welcome_Screen.class);
-                welcomScreen.putExtra("utilisateurConnecte",user);
+                welcomScreen.putExtra("utilisateurConnecte",utilisateur);
                 startActivity(welcomScreen);
             }
         });
     }
 
-    public static MySQLDataBase getMysqlDatabase() {
+    /*public static MySQLDataBase getMysqlDatabase() {
         return mysqlDatabase;
-    }
+    }*/
 
+    public AppDatabase getAppDatabase(){
+        return appDatabase;
+    }
 
     public static Bundle getBundle() {
         return bundle;

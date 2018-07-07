@@ -1,3 +1,4 @@
+/*
 package com.example.armand.quiestlepluscher.sqlite;
 
 import android.content.Context;
@@ -13,9 +14,11 @@ import com.example.armand.quiestlepluscher.sqlite.dao.ProduitDAO;
 import com.example.armand.quiestlepluscher.sqlite.dao.TypeDAO;
 import com.example.armand.quiestlepluscher.sqlite.dao.UtilisateurDAO;
 
+*/
 /**
  * Created by ulyss on 06/06/2017.
- */
+ *//*
+
 
 public class MySQLDataBase extends SQLiteOpenHelper {
 
@@ -61,3 +64,4 @@ public class MySQLDataBase extends SQLiteOpenHelper {
 
     }
 }
+*/

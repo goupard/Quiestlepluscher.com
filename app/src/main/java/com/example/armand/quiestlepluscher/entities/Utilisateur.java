@@ -1,4 +1,8 @@
-package com.example.armand.quiestlepluscher.sqlite.entities;
+package com.example.armand.quiestlepluscher.entities;
+
+import android.arch.persistence.room.ColumnInfo;
+import android.arch.persistence.room.Entity;
+import android.arch.persistence.room.PrimaryKey;
 
 import java.io.Serializable;
 
@@ -6,25 +10,21 @@ import java.io.Serializable;
  * Created by ulyss on 12/06/2018.
  */
 
+@Entity(tableName = "utilisateur")
 public class Utilisateur implements Serializable{
+    @PrimaryKey(autoGenerate = true)
+    @ColumnInfo(name = "id_utilisateur")
     private long id_utilisateur;
+    @ColumnInfo(name = "login")
     private String login;
+    @ColumnInfo(name = "nom")
     private String nom;
+    @ColumnInfo(name = "prenom")
     private String prenom;
+    @ColumnInfo(name = "hashed_password")
     private String hashed_password;
+    @ColumnInfo(name = "email")
     private String email;
-
-    public Utilisateur() {
-    }
-
-    public Utilisateur(int id_utilisateur, String login, String hashed_password, String email, String nom, String prenom) {
-        this.id_utilisateur = id_utilisateur;
-        this.login = login;
-        this.nom = nom;
-        this.prenom = prenom;
-        this.hashed_password = hashed_password;
-        this.email = email;
-    }
 
     public long getId_utilisateur() {
         return id_utilisateur;

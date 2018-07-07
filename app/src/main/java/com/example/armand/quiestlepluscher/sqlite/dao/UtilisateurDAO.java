@@ -1,3 +1,4 @@
+/*
 package com.example.armand.quiestlepluscher.sqlite.dao;
 
 import android.app.Activity;
@@ -8,24 +9,25 @@ import android.util.Log;
 
 import com.example.armand.quiestlepluscher.screen.Connexion;
 import com.example.armand.quiestlepluscher.sqlite.MySQLDataBase;
-import com.example.armand.quiestlepluscher.views.Welcome_Screen;
-import com.example.armand.quiestlepluscher.sqlite.entities.Utilisateur;
+import com.example.armand.quiestlepluscher.entities.Utilisateur;
 
 import java.util.ArrayList;
 
+*/
 /**
  * Created by ulyss on 12/06/2018.
- */
+ *//*
+
 
 public class UtilisateurDAO {
     public static String TABLE_NAME = "T_UTILISATEUR";
 
     public static String id_utilisateur = "id_utilisateur";
-    private static String login = "login";
-    private static String nom = "nom";
-    private static String prenom = "prenom";
-    private static String hashed_password = "hashed_password";
-    private static String email = "email";
+    public static String login = "login";
+    public static String nom = "nom";
+    public static String prenom = "prenom";
+    public static String hashed_password = "hashed_password";
+    public static String email = "email";
 
     public static String sqlCreateTableUsers = "CREATE TABLE IF NOT EXISTS "+TABLE_NAME+" ( " +
             id_utilisateur + " INTEGER PRIMARY KEY AUTOINCREMENT ," +
@@ -98,3 +100,4 @@ public class UtilisateurDAO {
     }
 
 }
+*/
